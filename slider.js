@@ -12,11 +12,21 @@ prevDom.onclick = function(){
     showSlider('prev');
 }
 
+// Adding keyboard functionality for left and right arrows
+document.addEventListener('keydown', function(event) {
+    if(event.key === 'ArrowRight') {
+        showSlider('next');
+    } else if(event.key === 'ArrowLeft') {
+        showSlider('prev');
+    }
+});
+
 let timeRunning = 3000;
 let runTimeOut;
+
 function showSlider(type){
     let itemSlider = document.querySelectorAll('.slider .list .item');
-    let itemThumbnail = document.querySelectorAll('.slider .thumbnail .item')
+    let itemThumbnail = document.querySelectorAll('.slider .thumbnail .item');
 
     if(type === 'next'){
         listItemDom.appendChild(itemSlider[0]);
@@ -24,7 +34,7 @@ function showSlider(type){
         sliderDom.classList.add('next');
     }else{
         let positionLastItem = itemSlider.length - 1 ;
-        listItemDom.prepend(itemSlider[positionLastItem])
+        listItemDom.prepend(itemSlider[positionLastItem]);
         thumbnailDom.prepend(itemThumbnail[positionLastItem]);
         sliderDom.classList.add('prev');
     }
@@ -33,6 +43,5 @@ function showSlider(type){
     runTimeOut = setTimeout(() => {
         sliderDom.classList.remove('next');
         sliderDom.classList.remove('prev');
-
     }, timeRunning)
 }
